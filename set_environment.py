@@ -87,7 +87,7 @@ class DeployEnv(object):
 
 		if self.language != "nodejs":
 			# set env vars with python-dotenv
-			dotenv_path = 'config/' + env_file
+			dotenv_path = 'temp_config/' + env_file
 			load_dotenv(dotenv_path)
 
 		return env_file
