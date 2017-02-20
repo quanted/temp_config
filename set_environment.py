@@ -4,7 +4,7 @@ import logging
 from dotenv import load_dotenv
 import requests
 
-logging.info("set_environment.py")
+logging.warning("set_environment.py")
 
 
 class DeployEnv(object):
@@ -28,14 +28,14 @@ class DeployEnv(object):
 		inside/outside epa network, with/without docker, prod, etc.
 		"""
 
-		logging.info("DOCKER_HOSTNAME: {}".format(self.docker_hostname))
-		logging.info("HOSTNAME: {}".format(self.hostname))
+		logging.warning("DOCKER_HOSTNAME: {}".format(self.docker_hostname))
+		logging.warning("HOSTNAME: {}".format(self.hostname))
 
 		_env_file = ''  # environment file name
 
 		if self.hostname == "ord-uber-vm001" or self.hostname == "ord-uber-vm003":
 			# deploy with docker_prod.env on cgi servers
-			logging.info("Deploying on prod server...")
+			logging.warning("Deploying on prod server...")
 			_env_file = 'docker_prod.env'
 			# self.read_env_file('docker_prod')
 
@@ -44,46 +44,46 @@ class DeployEnv(object):
 			internal_request = None
 			try:
 				# simple request to qed internal page to see if inside epa network:
-				logging.info("Testing for epa network access..")
+				logging.warning("Testing for epa network access..")
 				internal_request = requests.get(self.test_url, verify=False, timeout=1)
 			except Exception as e:
-				logging.info("Exception making request to qedinternal server...")
-				logging.info("User has no access to cgi servers at 134 addresses...")
+				logging.warning("Exception making request to qedinternal server...")
+				logging.warning("User has no access to cgi servers at 134 addresses...")
 
-			logging.info("Response: {}".format(internal_request))
+			logging.warning("Response: {}".format(internal_request))
 
 			if internal_request and internal_request.status_code == 200:
-				logging.info("Inside epa network...")
+				logging.warning("Inside epa network...")
 				if not self.docker_hostname:
-					logging.info("DOCKER_HOSTNAME not set, assumming local deployment...")
-					logging.info("Deploying with local epa environment...")
+					logging.warning("DOCKER_HOSTNAME not set, assumming local deployment...")
+					logging.warning("Deploying with local epa environment...")
 					# self.read_env_file('local_epa')
 					_env_file = 'local_epa.env'
 				else:
-					logging.info("DOCKER_HOSTNAME: {}, Deploying with epa docker environment...")
+					logging.warning("DOCKER_HOSTNAME: {}, Deploying with epa docker environment...")
 					# self.read_env_file('docker_epa')
 					_env_file = 'docker_epa.env'
 			else:
-				logging.info("Assuming outside epa network...")
+				logging.warning("Assuming outside epa network...")
 				if not self.docker_hostname:
-					logging.info("DOCKER_HOSTNAME not set, assumming local deployment...")
-					logging.info("Deploying with local non-epa environment...")
+					logging.warning("DOCKER_HOSTNAME not set, assumming local deployment...")
+					logging.warning("Deploying with local non-epa environment...")
 					# self.read_env_file('local_outside')
 					_env_file = 'local_outside.env'
 				else:
-					logging.info("DOCKER_HOSTNAME: {}, Deploying with non-epa docker environment...")
+					logging.warning("DOCKER_HOSTNAME: {}, Deploying with non-epa docker environment...")
 					# self.read_env_file('docker_outside')
 					_env_file = 'docker_outside.env'
 
-		logging.info("reading env file function...")
+		logging.warning("reading env file function...")
 		return self.read_env_file(_env_file)
 
 	def read_env_file(self, env_file):
 		"""
 		Loads .env file env vars to be access with os.environ.get
 		"""
-		# logging.info("Looking for .env file at {}".format(env_file))
-		logging.info("env file: " + env_file)
+		# logging.warning("Looking for .env file at {}".format(env_file))
+		logging.warning("env file: " + env_file)
 
 		if self.language != "nodejs":
 			# set env vars with python-dotenv
@@ -104,3 +104,7 @@ if __name__ == '__main__':
 		# by nodejs via output stream
 		runtime_env = DeployEnv("nodejs")
 		print runtime_env.load_deployment_environment()  # sent to cts_nodejs via stdout
+	elif additional_arg == "python":
+		runtime_env = DeployEnv()
+		runtime_env.load_deployment_environment()  # set env vars for python env
+
