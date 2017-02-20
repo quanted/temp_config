@@ -33,7 +33,7 @@ class DeployEnv(object):
 
 		_env_file = ''  # environment file name
 
-		if self.hostname == "ord-uber-vm001" or self.hostname == "ord-uber-vm003":
+		if self.docker_hostname == "ord-uber-vm001" or self.docker_hostname == "ord-uber-vm003":
 			# deploy with docker_prod.env on cgi servers
 			logging.warning("Deploying on prod server...")
 			_env_file = 'docker_prod.env'
@@ -60,7 +60,7 @@ class DeployEnv(object):
 					# self.read_env_file('local_epa')
 					_env_file = 'local_epa.env'
 				else:
-					logging.warning("DOCKER_HOSTNAME: {}, Deploying with epa docker environment...")
+					# logging.warning("DOCKER_HOSTNAME: {}, Deploying with epa docker environment...")
 					# self.read_env_file('docker_epa')
 					_env_file = 'docker_epa.env'
 			else:
