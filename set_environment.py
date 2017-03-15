@@ -92,19 +92,19 @@ class DeployEnv(object):
 
 		return env_file
 
-if __name__ == '__main__':
-	"""
-	Handling calls to set_environment as main.
-	Example case: called by nodejs
-	"""
+# if __name__ == '__main__':
+# 	"""
+# 	Handling calls to set_environment as main.
+# 	Example case: called by nodejs
+# 	"""
 
-	additional_arg = sys.argv[1]
-	if additional_arg == "nodejs":
-		# return env vars to nodejs, print statements are read 
-		# by nodejs via output stream
-		runtime_env = DeployEnv("nodejs")
-		print runtime_env.load_deployment_environment()  # sent to cts_nodejs via stdout
-	elif additional_arg == "python":
-		runtime_env = DeployEnv()
-		runtime_env.load_deployment_environment()  # set env vars for python env
+# 	additional_arg = sys.argv[1]
+# 	if additional_arg == "nodejs":
+# 		# return env vars to nodejs, print statements are read 
+# 		# by nodejs via output stream
+# 		runtime_env = DeployEnv("nodejs")
+# 		print runtime_env.load_deployment_environment()  # sent to cts_nodejs via stdout
+# 	elif additional_arg == "python":
+# 		runtime_env = DeployEnv()
+# 		runtime_env.load_deployment_environment()  # set env vars for python env
 
