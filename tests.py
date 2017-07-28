@@ -4,7 +4,7 @@ from django.test import TestCase
 from set_environment import DeployEnv
 
 
-print "temp_config/tests.py"
+print("temp_config/tests.py")
 
 
 class TempConfigTestCase(TestCase):
@@ -24,7 +24,7 @@ class TempConfigTestCase(TestCase):
 		"""
 		Set up a default test scenario for temp_config
 		"""
-		print "setUp"
+		print("setUp")
 
 
 	def test_set_environment(self):
@@ -36,10 +36,10 @@ class TempConfigTestCase(TestCase):
 		func_response = runtime_env.load_deployment_environment()
 		if '.env' in func_response:
 			# todo: more robust test, like checking if an env var is set
-			print "set_environment test passed! Using {} env file".format(func_response)
+			print("set_environment test passed! Using {} env file".format(func_response))
 			return True
 		else:
-			print "set_enviornemtn test failed... Using {} env file".format(func_response)
+			print("set_enviornemtn test failed... Using {} env file".format(func_response))
 			return False
 
 
@@ -49,7 +49,7 @@ class TempConfigTestCase(TestCase):
 		code is running on (windows or unix)
 		"""
 		os_type = platform.system()
-		print "system platform: ".format(os_type)
+		print("system platform: ".format(os_type))
 
 		try:
 			if os_type == "Windows":
@@ -58,10 +58,10 @@ class TempConfigTestCase(TestCase):
 				return self.eval_test_scripts(self.shell_filename, self.test_env_filename, os_type)
 			else:
 				# raise hell, only testing for above two cases (sorry, mac)
-				print "Test failed, os_type {} undetermined...".format(os_type)
+				print("Test failed, os_type {} undetermined...".format(os_type))
 				return False
 		except Exception as e:
-			print "test_scripts test failed... exception: {}".format(e)
+			print("test_scripts test failed... exception: {}".format(e))
 			return False
 
 
@@ -71,17 +71,17 @@ class TempConfigTestCase(TestCase):
 		script file depending on OS platform
 		"""
 		try:
-			print "testing subprocess.call for {} script and {} env var file".format(script_filename, env_filename)
+			print("testing subprocess.call for {} script and {} env var file".format(script_filename, env_filename))
 			p = subprocess.call([script_filename, env_filename])
 		except Exception as e:
-			print "Test failed at eval_test_scripts making subprocess.call"
+			print("Test failed at eval_test_scripts making subprocess.call")
 			return False
 
-		print "returned value from subprocess.call: {}".format(p)
+		print("returned value from subprocess.call: {}".format(p))
 
 		if p == 0:
-			print "set_env_vars test for {} passed!".format(os_type)
+			print("set_env_vars test for {} passed!".format(os_type))
 			return True
 		else:
-			print "set_env_vars test for {} failed...".format(os_type)
+			print("set_env_vars test for {} failed...".format(os_type))
 			return False
