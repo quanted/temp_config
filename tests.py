@@ -1,6 +1,7 @@
 import platform
 import subprocess
-from django.test import TestCase
+# from django.test import TestCase
+from unittest import TestCase
 from set_environment import DeployEnv
 
 
