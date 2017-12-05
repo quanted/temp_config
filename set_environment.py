@@ -32,12 +32,16 @@ class DeployEnv(object):
 		logging.warning("HOSTNAME: {}".format(self.hostname))
 
 		_env_file = ''  # environment file name
+		_is_public = False
 
 		if self.docker_hostname == "ord-uber-vm001" or self.docker_hostname == "ord-uber-vm003":
 			# deploy with docker_prod.env on cgi servers
 			logging.warning("Deploying on prod server...")
 			_env_file = 'docker_prod.env'
-			# self.read_env_file('docker_prod')
+
+			if self.docker_hostname == "ord-uber-vm003":
+				logging.info("Deploying on public server.. Setting IS_PUBLIC to True..")
+				_is_public = True  # only case to set True
 
 		else:
 			# determine if inside or outside epa network
@@ -75,7 +79,9 @@ class DeployEnv(object):
 					# self.read_env_file('docker_outside')
 					_env_file = 'docker_outside.env'
 
-		logging.warning("reading env file function...")
+		os.environ['IS_PUBLIC'] = str(_is_public)  # Add public bool to env for login if public
+
+		logging.warning("loading env vars from: {}".format(_env_file))
 		return self.read_env_file(_env_file)
 
 	def read_env_file(self, env_file):
@@ -91,6 +97,7 @@ class DeployEnv(object):
 			load_dotenv(dotenv_path)
 
 		return env_file
+		
 
 # if __name__ == '__main__':
 # 	"""
