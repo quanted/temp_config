@@ -42,7 +42,10 @@ class DeployEnv(object):
             if self.docker_hostname == "ord-uber-vm003":
                 logging.info("Deploying on public server.. Setting IS_PUBLIC to True..")
                 _is_public = True  # only case to set True
-
+        elif self.docker_hostname == "ord-uber-vm005" or self.docker_hostname == "ord-uber-vm007":
+            print("TEST: " + str(self.docker_hostname))
+            logging.warning("Deploying to development server...")
+            _env_file = 'docker_epa.env'
         else:
             # determine if inside or outside epa network
             internal_request = None
