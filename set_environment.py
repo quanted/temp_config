@@ -34,17 +34,19 @@ class DeployEnv(object):
         _env_file = ''  # environment file name
         _is_public = False
 
-        if self.docker_hostname == "ord-uber-vm001" or self.docker_hostname == "ord-uber-vm003":
+        if self.docker_hostname == "ord-uber-vm001":
             # deploy with docker_prod.env on cgi servers
-            logging.warning("Deploying on prod server...")
+            logging.warning("Deploying on public server... Setting IS_PUBLIC=TRUE")
             _env_file = 'docker_prod.env'
-
-            if self.docker_hostname == "ord-uber-vm003":
-                logging.info("Deploying on public server.. Setting IS_PUBLIC to True..")
-                _is_public = True  # only case to set True
-        elif self.docker_hostname == "ord-uber-vm005" or self.docker_hostname == "ord-uber-vm007":
-            print("TEST: " + str(self.docker_hostname))
-            logging.warning("Deploying to development server...")
+            _is_public = True  # only case to set True
+        elif self.docker_hostname == "ord-uber-vm003":
+            logging.info("Deploying on staging server..")
+            _env_file = 'docker_staging.env'
+        elif self.docker_hostname == "ord-uber-vm005":
+            logging.warning("Deploying to development qed server...")
+            _env_file = 'docker_epa.env'
+        elif self.docker_hostname == "ord-uber-vm007":
+            logging.warning("Deploying to development qed_pram server...")
             _env_file = 'docker_epa.env'
         else:
             # determine if inside or outside epa network
@@ -83,14 +85,13 @@ class DeployEnv(object):
                     _env_file = 'docker_outside.env'
 
         os.environ['IS_PUBLIC'] = str(_is_public)  # Add public bool to env for login if public
-
         logging.warning("loading env vars from: {}".format(_env_file))
         return self.read_env_file(_env_file)
 
     def read_env_file(self, env_file):
         """
-		Loads .env file env vars to be access with os.environ.get
-		"""
+        Loads .env file env vars to be access with os.environ.get
+        """
         # logging.warning("Looking for .env file at {}".format(env_file))
         logging.warning("env file: " + env_file)
 
