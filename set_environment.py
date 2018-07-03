@@ -34,12 +34,12 @@ class DeployEnv(object):
         _env_file = ''  # environment file name
         _is_public = False
 
-        if self.docker_hostname == "ord-uber-vm001":
+        if self.docker_hostname == "ord-uber-vm003":
             # deploy with docker_prod.env on cgi servers
             logging.warning("Deploying on public server... Setting IS_PUBLIC=TRUE")
             _env_file = 'docker_prod.env'
             _is_public = True  # only case to set True
-        elif self.docker_hostname == "ord-uber-vm003":
+        elif self.docker_hostname == "ord-uber-vm001":
             logging.info("Deploying on staging server..")
             _env_file = 'docker_staging.env'
         elif self.docker_hostname == "ord-uber-vm005":
