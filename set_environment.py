@@ -17,9 +17,9 @@ class DeployEnv(object):
         self.docker_hostname = os.environ.get('DOCKER_HOSTNAME')
         self.hostname = os.environ.get('HOSTNAME')
         self.test_url = os.environ.get('EPA_ACCESS_TEST_URL')
-        # self.test_url = 'https://134.67.114.2'
+        self.test_url = 'https://qedinternal.epa.gov'
         if not self.test_url:
-            self.test_url = 'https://134.67.114.2'
+            self.test_url = 'https://qedinternal.epa.gov'
         self.language = language  # default assumption is python, could be nodejs though
 
     def load_deployment_environment(self):
