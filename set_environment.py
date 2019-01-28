@@ -39,7 +39,7 @@ class DeployEnv(object):
             logging.warning("Deploying on public server... Setting IS_PUBLIC=TRUE")
             _env_file = 'docker_prod.env'
             _is_public = True  # only case to set True
-        elif self.docker_hostname == "ord-uber-vm001":
+        elif self.docker_hostname is "ord-uber-vm001":
             logging.info("Deploying on staging server..")
             _env_file = 'docker_staging.env'
         elif self.docker_hostname == "ord-uber-vm005":
