@@ -1,0 +1,27 @@
+[
+	{
+		"IP": "172.20.100.11",
+		"HOSTNAME": "ord-uber-vm001",
+		"ENV": "cgi_docker_staging.env"
+	},
+	{
+		"IP": "172.20.100.13",
+		"HOSTNAME": "ord-uber-vm003",
+		"ENV": "cgi_docker_prod.env"
+	},
+	{
+		"IP": "172.20.100.15",
+		"HOSTNAME": "ord-uber-vm005",
+		"ENV": "cgi_docker_dev.env"
+	},
+	{
+		"IP": "172.20.100.17",
+		"HOSTNAME": "ord-uber-vm007",
+		"ENV": "cgi_docker_dev.env"
+	},
+	{
+		"IP": "localhost",
+		"HOSTNAME": "",
+		"ENV": "local_dev.env"
+	}
+]
