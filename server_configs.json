@@ -1,8 +1,8 @@
 [
 	{
 		"SERVER_NAME": "",
-		"ENV": "saic_cgi_docker_prod.env",
-		"DESCRIPTION": "Production server for SAIC CGI cloud (TODO: how to blue-green?)."
+		"ENV": "saic_aws_docker_prod.env",
+		"DESCRIPTION": "Production server for SAIC AWS cloud (TODO: how to blue-green?)."
 	},
 	{
 		"SERVER_NAME": "ord-uber-vm001",
