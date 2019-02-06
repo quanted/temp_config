@@ -1,7 +1,7 @@
 [
 	{
 		"SERVER_NAME": "",
-		"ENV": "saic_cgi_docker_blue.env",
+		"ENV": "saic_cgi_docker_prod.env",
 		"DESCRIPTION": "Production server for SAIC CGI cloud (TODO: how to blue-green?)."
 	},
 	{
