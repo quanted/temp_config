@@ -1,7 +1,7 @@
 # Environment handling for QED
 
 temp_config first looks through a set list of environments in server_configs.json, then
-if a matching IP or HOSTNAME doesn't exist in that file, temp_config runs its original routine where it automatically determines the environment to use.
+if a matching SERVER_NAME doesn't exist in that file, temp_config runs its original routine where it automatically determines the environment to use.
 
 ### Current environment files
 	1. cgi_docker_*.env - environments for old cgi servers.
@@ -11,11 +11,12 @@ if a matching IP or HOSTNAME doesn't exist in that file, temp_config runs its or
 
 ### Adding a new environment
 
-To add a new environment for server deployment, first add an entry to temp_config/server_configs.json file. Each entry has the following keys: IP, HOSTNAME, ENV:
+To add a new environment for server deployment, first add an entry to temp_config/server_configs.json file. Each entry has the following keys: SERVER_NAME, ENV, DESCRIPTION:
 
-	+ IP - The server's IP address.
-	+ HOSTNAME - The server's hostname. Note: This is used in our docker-compose deploys to set DOCKER_HOSTNAME, which temp_config/set_environment.py 
-	+ ENV - The .env filename to point to for the server. 
+	+ SERVER_NAME - The server's name, which can be obtained from socket.gethostname() (				Python), $HOSTNAME (Linux), or %COMPUTERNAME% (Windows), and assumes
+					local if neither exist.
+	+ ENV - The .env filename to point to for the server name.
+	+ DESCRIPTION - Brief summary of server (optional).
 
 ### Dynamically set env vars in python code:
 
@@ -26,5 +27,5 @@ To add a new environment for server deployment, first add an entry to temp_confi
 
 ### To set .env with a shell script, run:
 
-	+ linux: . set_env_vars.sh env_filename.env
-	+ windows: set_env_vars.bat env_filename.env
+	+ Linux: . set_env_vars.sh env_filename.env
+	+ Windows: set_env_vars.bat env_filename.env

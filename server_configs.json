@@ -1,27 +1,32 @@
 [
 	{
-		"IP": "172.20.100.11",
-		"HOSTNAME": "ord-uber-vm001",
-		"ENV": "cgi_docker_staging.env"
+		"SERVER_NAME": "ord-uber-vm001",
+		"ENV": "cgi_docker_staging.env",
+		"DESCRIPTION": "Staging server for old CGI cloud (staging branch, docker)."
 	},
 	{
-		"IP": "172.20.100.13",
-		"HOSTNAME": "ord-uber-vm003",
-		"ENV": "cgi_docker_prod.env"
+		"SERVER_NAME": "ord-uber-vm003",
+		"ENV": "cgi_docker_prod.env",
+		"DESCRIPTION": "Production server for old CGI cloud (master branch, docker)."
 	},
 	{
-		"IP": "172.20.100.15",
-		"HOSTNAME": "ord-uber-vm005",
-		"ENV": "cgi_docker_dev.env"
+		"SERVER_NAME": "ord-uber-vm005",
+		"ENV": "cgi_docker_dev.env",
+		"DESCRIPTION": "Development server for old CGI cloud (dev branch, docker)."
 	},
 	{
-		"IP": "172.20.100.17",
-		"HOSTNAME": "ord-uber-vm007",
-		"ENV": "cgi_docker_dev.env"
+		"SERVER_NAME": "ord-uber-vm007",
+		"ENV": "cgi_docker_dev.env",
+		"DESCRIPTION": "Development server for old CGI cloud (dev branch, docker)."
 	},
 	{
-		"IP": "localhost",
-		"HOSTNAME": "",
-		"ENV": "local_dev.env"
+		"SERVER_NAME": "local",
+		"ENV": "local_dev.env",
+		"DESCRIPTION": "Local development outside EPA intranet (dev branch)."
+	},
+	{
+		"SERVER_NAME": "popenc",
+		"ENV": "local_dev.env",
+		"DESCRIPTION": "Example config entry for personal/local/dev environment."
 	}
 ]
