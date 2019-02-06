@@ -13,10 +13,9 @@ if a matching SERVER_NAME doesn't exist in that file, temp_config runs its origi
 
 To add a new environment for server deployment, first add an entry to temp_config/server_configs.json file. Each entry has the following keys: SERVER_NAME, ENV, DESCRIPTION:
 
-	+ SERVER_NAME - The server's name, which can be obtained from socket.gethostname() (				Python), $HOSTNAME (Linux), or %COMPUTERNAME% (Windows), and assumes
-					local if neither exist.
-	+ ENV - The .env filename to point to for the server name.
-	+ DESCRIPTION - Brief summary of server (optional).
+* **SERVER_NAME** - The server's name, which can be obtained from socket.gethostname() (Python), $HOSTNAME (Linux), or %COMPUTERNAME% (Windows), and assumes local if neither exist. <br>
+* **ENV** - The .env filename to point to for the server name. <br>
+* **DESCRIPTION** - Brief summary of server (optional).
 
 ### Dynamically set env vars in python code:
 
@@ -27,5 +26,5 @@ To add a new environment for server deployment, first add an entry to temp_confi
 
 ### To set .env with a shell script, run:
 
-	+ Linux: . set_env_vars.sh env_filename.env
-	+ Windows: set_env_vars.bat env_filename.env
+**Linux:** . set_env_vars.sh env_filename.env <br>
+**Windows:** set_env_vars.bat env_filename.env
