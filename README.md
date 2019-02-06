@@ -26,5 +26,6 @@ To add a new environment for server deployment, first add an entry to temp_confi
 
 ### To set .env with a shell script, run:
 
-**Linux:** . set_env_vars.sh env_filename.env <br>
-**Windows:** set_env_vars.bat env_filename.env
+**Linux:** `set_env_vars.sh env_filename.env`
+<br>
+**Windows:** `set_env_vars.bat env_filename.env`
