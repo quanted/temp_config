@@ -78,34 +78,41 @@ class DeployEnv(ServerConfig):
         self.epa_access_test_url = 'https://qedinternal.epa.gov'
         if not self.epa_access_test_url:
             self.epa_access_test_url = 'https://qedinternal.epa.gov'
-        
+
         self.env_path = "temp_config/environments/"  # path to .env files
 
 
     def determine_env(self):
         """
         Determines which .env file to use by matching machine name
-        with server config in server_configs.json. First, tries 
+        with server config in server_configs.json. First, tries
         machine id (socket.gethostname()), then hostname ($HOSTNAME),
         then computer name (%COMPUTERNAME%), and finally runs the original
         routine to automatically determine env if none of the above match.
         """
 
-        # First try and find matching SERVER_NAME with machine id:
-        env_filename = self.set_current_config(self.machine_id)
+        # First, try matching docker hostname env var to SERVER_NAME:
+        env_filename = self.set_current_config(self.docker_hostname)
+
+        if not env_filename:
+            # Try to find matching SERVER_NAME with machine id:
+            env_filename = self.set_current_config(self.machine_id)
+        else:
+            logging.warning("Setting .env filename using $DOCKER_HOSTNAME.")
+            return env_filename
 
         if not env_filename:
             # Next, try hostname ($HOSTNAME env var) if machine id doesn't match:
             env_filename = self.set_current_config(self.hostname)
         else:
-            logging.warning("Set .env filename using socket.gethostname().")
+            logging.warning("Setting .env filename using socket.gethostname().")
             return env_filename
 
         if not env_filename:
             # If machine id or hostname don't match, try %COMPUTERNAME% (Windows env var):
             env_filename = self.set_current_config(self.computer_name)
         else:
-            logging.warning("Set .env filename using $HOSTNAME env var.")
+            logging.warning("Setting .env filename using $HOSTNAME env var.")
             return env_filename
 
         if not env_filename:
@@ -113,7 +120,7 @@ class DeployEnv(ServerConfig):
             env_filename = self.run_auto_env_selector()
             return env_filename
         else:
-            logging.warning("Set .env filename using %COMPUTERNAME% env var.")
+            logging.warning("Setting .env filename using %COMPUTERNAME% env var.")
             return env_filename
 
         return None
