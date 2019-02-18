@@ -1,6 +1,6 @@
 [
 	{
-		"SERVER_NAME": "",
+		"SERVER_NAME": "ip-10-1-12-8",
 		"ENV": "saic_aws_docker_prod.env",
 		"DESCRIPTION": "Production server for SAIC AWS cloud (TODO: how to blue-green?)."
 	},
