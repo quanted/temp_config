@@ -9,7 +9,6 @@ import socket
 logging.warning("set_environment.py")
 
 
-
 class ServerConfig:
     """
     Handles server configurations that are laid out in
@@ -58,7 +57,6 @@ class ServerConfig:
         return self.current_config
 
 
-
 class DeployEnv(ServerConfig):
     """
     Class for determining deploy env for running QED apps.
@@ -80,7 +78,6 @@ class DeployEnv(ServerConfig):
             self.epa_access_test_url = 'https://qedinternal.epa.gov'
 
         self.env_path = "temp_config/environments/"  # path to .env files
-
 
     def determine_env(self):
         """
@@ -125,9 +122,6 @@ class DeployEnv(ServerConfig):
 
         return None
 
-
-
-
     def load_deployment_environment(self):
         """
         Looks through server_configs.json with ServerConfig class,
@@ -139,7 +133,8 @@ class DeployEnv(ServerConfig):
         # server_name = self.get_machine_identifer()
 
         # Sets machine identifier attributes:
-        self.docker_hostname = os.environ.get('DOCKER_HOSTNAME')  # docker hostname (set in docker-compose using Bash $HOSTNAME)
+        self.docker_hostname = os.environ.get(
+            'DOCKER_HOSTNAME')  # docker hostname (set in docker-compose using Bash $HOSTNAME)
         self.hostname = os.environ.get('HOSTNAME')  # HOSTNAME env var for Linux/Bash
         self.computer_name = os.environ.get('COMPUTERNAME')  # COMPUTERNAME env var for windows
         self.machine_id = socket.gethostname()  # returns string of hostname of machine where Python interpreter is currently executing (also see: socket.getfqdn())
@@ -149,66 +144,6 @@ class DeployEnv(ServerConfig):
         logging.warning("COMPUTERNAME: {}".format(self.computer_name))
         logging.warning("MACHINE ID: {}".format(socket.gethostname()))
 
-<<<<<<< HEAD
-        _env_file = ''  # environment file name
-        _is_public = False
-
-        if self.docker_hostname == "ord-uber-vm003":
-            # deploy with docker_prod.env on cgi servers
-            logging.warning("Deploying on public server... Setting IS_PUBLIC=TRUE")
-            _env_file = 'docker_prod.env'
-            _is_public = True  # only case to set True
-        elif self.docker_hostname is "ord-uber-vm001":
-            logging.info("Deploying on staging server..")
-            _env_file = 'docker_staging.env'
-        elif self.docker_hostname == "ord-uber-vm005":
-            logging.warning("Deploying to development qed server...")
-            _env_file = 'docker_epa.env'
-        elif self.docker_hostname == "ord-uber-vm007":
-            logging.warning("Deploying to development qed_pram server...")
-            _env_file = 'docker_epa.env'
-        else:
-            # determine if inside or outside epa network
-            internal_request = None
-            try:
-                # simple request to qed internal page to see if inside epa network:
-                logging.warning("Testing for epa network access..")
-                internal_request = requests.get(self.test_url, verify=False, timeout=1)
-            except Exception as e:
-                logging.warning("Exception making request to qedinternal server...")
-                logging.warning("User has no access to cgi servers at 134 addresses...")
-
-            logging.warning("Response: {}".format(internal_request))
-
-            if internal_request and internal_request.status_code == 200:
-                logging.warning("Inside epa network...")
-                if not self.docker_hostname:
-                    logging.warning("DOCKER_HOSTNAME not set, assumming local deployment...")
-                    logging.warning("Deploying with local epa environment...")
-                    # self.read_env_file('local_epa')
-                    _env_file = 'local_epa.env'
-                else:
-                    # logging.warning("DOCKER_HOSTNAME: {}, Deploying with epa docker environment...")
-                    # self.read_env_file('docker_epa')
-                    _env_file = 'docker_epa.env'
-            else:
-                logging.warning("Assuming outside epa network...")
-                if not self.docker_hostname:
-                    logging.warning("DOCKER_HOSTNAME not set, assumming local deployment...")
-                    logging.warning("Deploying with local non-epa environment...")
-                    # self.read_env_file('local_outside')
-                    _env_file = 'local_outside.env'
-                else:
-                    logging.warning("DOCKER_HOSTNAME: {}, Deploying with non-epa docker environment...")
-                    # self.read_env_file('docker_outside')
-                    _env_file = 'docker_outside.env'
-
-        os.environ['IS_PUBLIC'] = str(_is_public)  # Add public bool to env for login if public
-        logging.warning("loading env vars from: {}".format(_env_file))
-        return self.read_env_file(_env_file)
-
-    def read_env_file(self, env_file):
-=======
         env_filename = self.determine_env()  # gets .env filename by checking machine name with server_configs.json
 
         logging.warning("Loading env vars from: {}.".format(env_filename))
@@ -219,9 +154,7 @@ class DeployEnv(ServerConfig):
 
         return env_filename
 
-
     def run_auto_env_selector(self):
->>>>>>> 11c97e30e7de624ea3902392aac48fdec611ba14
         """
         Routine that tries determine what .env file to use automatically.
         Makes call to qedinternal to check if deployed in epa intranet, and
@@ -244,7 +177,7 @@ class DeployEnv(ServerConfig):
             if not self.docker_hostname:
                 logging.warning("DOCKER_HOSTNAME not set, assumming local deployment.")
                 logging.warning("Deploying with local epa environment.")
-                return 'local_epa_dev.env'
+                return 'local_dev.env'
             else:
                 return 'cgi_docker_dev.env'
         else:
