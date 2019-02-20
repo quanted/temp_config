@@ -2,7 +2,12 @@
 	{
 		"SERVER_NAME": "ip-10-1-12-8",
 		"ENV": "saic_aws_docker_prod.env",
-		"DESCRIPTION": "Production server for SAIC AWS cloud (TODO: how to blue-green?)."
+		"DESCRIPTION": "Production server for SAIC AWS cloud."
+	},
+	{
+		"SERVER_NAME": "UberTool-Dev",
+		"ENV": "cgi_azure_docker_dev.env",
+		"DESCRIPTION": "CGI Azure Linux server for testing."
 	},
 	{
 		"SERVER_NAME": "ord-uber-vm001",
