@@ -2,6 +2,7 @@ import os
 import sys
 import logging
 from dotenv import load_dotenv
+import platform
 import requests
 import json
 import socket
@@ -23,6 +24,8 @@ class ServerConfig:
         self.current_config = None  # env var file to load
         self.configs = []  # var for list of config objects from general json config
         self.read_json_config_file()  # loads server config json to configs attribute
+        self.system_name = platform.system().upper()
+        print(self.system_name)
 
     def read_json_config_file(self):
         """
