@@ -7,7 +7,8 @@ import requests
 import json
 import socket
 
-logging.warning("set_environment.py")
+logger = logging.getLogger(__name__)
+logger.warning("set_environment.py")
 
 
 class ServerConfig:
@@ -25,7 +26,6 @@ class ServerConfig:
         self.configs = []  # var for list of config objects from general json config
         self.read_json_config_file()  # loads server config json to configs attribute
         self.system_name = platform.system().upper()
-        print(self.system_name)
 
     def read_json_config_file(self):
         """
@@ -98,21 +98,21 @@ class DeployEnv(ServerConfig):
             # Try to find matching SERVER_NAME with machine id:
             env_filename = self.set_current_config(self.machine_id)
         else:
-            logging.warning("Setting .env filename using $DOCKER_HOSTNAME.")
+            logger.warning("Setting .env filename using $DOCKER_HOSTNAME.")
             return env_filename
 
         if not env_filename:
             # Next, try hostname ($HOSTNAME env var) if machine id doesn't match:
             env_filename = self.set_current_config(self.hostname)
         else:
-            logging.warning("Setting .env filename using socket.gethostname().")
+            logger.warning("Setting .env filename using socket.gethostname().")
             return env_filename
 
         if not env_filename:
             # If machine id or hostname don't match, try %COMPUTERNAME% (Windows env var):
             env_filename = self.set_current_config(self.computer_name)
         else:
-            logging.warning("Setting .env filename using $HOSTNAME env var.")
+            logger.warning("Setting .env filename using $HOSTNAME env var.")
             return env_filename
 
         if not env_filename:
@@ -120,7 +120,7 @@ class DeployEnv(ServerConfig):
             env_filename = self.run_auto_env_selector()
             return env_filename
         else:
-            logging.warning("Setting .env filename using %COMPUTERNAME% env var.")
+            logger.warning("Setting .env filename using %COMPUTERNAME% env var.")
             return env_filename
 
         return None
@@ -142,17 +142,18 @@ class DeployEnv(ServerConfig):
         self.computer_name = os.environ.get('COMPUTERNAME')  # COMPUTERNAME env var for windows
         self.machine_id = socket.gethostname()  # returns string of hostname of machine where Python interpreter is currently executing (also see: socket.getfqdn())
 
-        logging.warning("DOCKER_HOSTNAME: {}".format(self.docker_hostname))
-        logging.warning("HOSTNAME: {}".format(self.hostname))
-        logging.warning("COMPUTERNAME: {}".format(self.computer_name))
-        logging.warning("MACHINE ID: {}".format(socket.gethostname()))
+        logger.warning("DOCKER_HOSTNAME: {}".format(self.docker_hostname))
+        logger.warning("HOSTNAME: {}".format(self.hostname))
+        logger.warning("COMPUTERNAME: {}".format(self.computer_name))
+        logger.warning("MACHINE ID: {}".format(socket.gethostname()))
 
         env_filename = self.determine_env()  # gets .env filename by checking machine name with server_configs.json
 
-        logging.warning("Loading env vars from: {}.".format(env_filename))
+        logger.warning("Loading env vars from: {}.".format(env_filename))
 
         dotenv_path = self.env_path + env_filename  # sets .env file path
 
+        os.environ["SYSTEM_NAME"] = self.system_name #set system name (e.g. WINDOWS or LINUX or DARWIN)
         load_dotenv(dotenv_path)  # loads env vars into environment
 
         return env_filename
@@ -167,30 +168,30 @@ class DeployEnv(ServerConfig):
         internal_request = None
         try:
             # simple request to qed internal page to see if inside epa network:
-            logging.warning("Testing for epa network access..")
+            logger.warning("Testing for epa network access..")
             internal_request = requests.get(self.epa_access_test_url, verify=False, timeout=1)
         except Exception as e:
-            logging.warning("Exception making request to qedinternal server.")
-            logging.warning("User has no access to cgi servers at 134 addresses.")
+            logger.warning("Exception making request to qedinternal server.")
+            logger.warning("User has no access to cgi servers at 134 addresses.")
 
-        logging.warning("Response: {}".format(internal_request))
+        logger.warning("Response: {}".format(internal_request))
 
         if internal_request and internal_request.status_code == 200:
-            logging.warning("Inside epa network.")
+            logger.warning("Inside epa network.")
             if not self.docker_hostname:
-                logging.warning("DOCKER_HOSTNAME not set, assumming local deployment.")
-                logging.warning("Deploying with local epa environment.")
+                logger.warning("DOCKER_HOSTNAME not set, assumming local deployment.")
+                logger.warning("Deploying with local epa environment.")
                 return 'local_dev.env'
             else:
                 return 'cgi_docker_dev.env'
         else:
-            logging.warning("Assuming outside epa network.")
+            logger.warning("Assuming outside epa network.")
             if not self.docker_hostname:
-                logging.warning("DOCKER_HOSTNAME not set, assumming local deployment.")
-                logging.warning("Deploying with local non-epa environment.")
+                logger.warning("DOCKER_HOSTNAME not set, assumming local deployment.")
+                logger.warning("Deploying with local non-epa environment.")
                 return 'local_dev.env'
             else:
-                logging.warning("DOCKER_HOSTNAME: {}, Deploying with non-epa docker environment.")
+                logger.warning("DOCKER_HOSTNAME: {}, Deploying with non-epa docker environment.")
                 return 'local_docker_dev.env'
 
         return None
