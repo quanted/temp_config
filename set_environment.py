@@ -39,11 +39,13 @@ class ServerConfig:
 
     def get_config(self, server_name):
         """
-        Searches above configs by SERVER_NAME depending,
-        returns env var file name to load.
+        Searches through server_configs.json objects for a match
+        for server_name. The SERVER_NAME in server_configs can be a
+        substring/pattern as well (e.g., QedClusterBlue would match
+        the QedCluster SERVER_NAME from server_configs.json).
         """
         for config_obj in self.configs:
-            if config_obj[self.server_key] == server_name:
+            if config_obj[self.server_key] in server_name:
                 self.current_config = config_obj[self.env_file_key]
                 return self.current_config
 
