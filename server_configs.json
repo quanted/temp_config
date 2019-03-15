@@ -38,5 +38,11 @@
 		"SERVER_NAME": "popenc",
 		"ENV": "local_dev.env",
 		"DESCRIPTION": "Example config entry for personal/local/dev environment."
+	},
+	{
+		"SERVER_NAME": "KUBERNETES",
+		"ENV": "kube_dev.env",
+		"DESCRIPTION": "Kubernetes development environment."
 	}
+
 ]
