@@ -35,9 +35,9 @@
 		"DESCRIPTION": "Local development outside EPA intranet (dev branch)."
 	},
 	{
-		"SERVER_NAME": "popenc",
-		"ENV": "local_dev.env",
-		"DESCRIPTION": "Example config entry for personal/local/dev environment."
+		"SERVER_NAME": "docker",
+		"ENV": "local_docker_dev.env",
+		"DESCRIPTION": "Local Docker development."
 	},
 	{
 		"SERVER_NAME": "KUBERNETES",
