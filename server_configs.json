@@ -10,26 +10,6 @@
 		"DESCRIPTION": "CGI Azure Linux server for testing."
 	},
 	{
-		"SERVER_NAME": "ord-uber-vm001",
-		"ENV": "cgi_docker_staging.env",
-		"DESCRIPTION": "Staging server for old CGI cloud (staging branch)."
-	},
-	{
-		"SERVER_NAME": "ord-uber-vm003",
-		"ENV": "cgi_docker_prod.env",
-		"DESCRIPTION": "Production server for old CGI cloud (master branch)."
-	},
-	{
-		"SERVER_NAME": "ord-uber-vm005",
-		"ENV": "cgi_docker_dev.env",
-		"DESCRIPTION": "Development server for old CGI cloud (dev branch)."
-	},
-	{
-		"SERVER_NAME": "ord-uber-vm007",
-		"ENV": "cgi_docker_dev.env",
-		"DESCRIPTION": "Development server for old CGI cloud (dev branch)."
-	},
-	{
 		"SERVER_NAME": "local",
 		"ENV": "local_dev.env",
 		"DESCRIPTION": "Local development outside EPA intranet (dev branch)."
