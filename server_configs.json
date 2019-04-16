@@ -1,8 +1,13 @@
 [
 	{
-		"SERVER_NAME": "QedCluster",
+		"SERVER_NAME": "qed-prod-green",
 		"ENV": "saic_aws_docker_prod.env",
 		"DESCRIPTION": "Production server for SAIC AWS cloud."
+	},
+	{
+		"SERVER_NAME": "qed-dev-blue",
+		"ENV": "saic_aws_docker_dev.env",
+		"DESCRIPTION": "Development server for SAIC AWS cloud."
 	},
 	{
 		"SERVER_NAME": "UberTool-Dev",
