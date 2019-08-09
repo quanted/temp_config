@@ -28,6 +28,21 @@
 		"SERVER_NAME": "KUBERNETES",
 		"ENV": "kube_dev.env",
 		"DESCRIPTION": "Kubernetes development environment."
+	},
+	{
+		"SERVER_NAME": "cdxd",
+		"ENV": "epa_azure_docker_dev.env",
+		"DESCRIPTION": "Development environment for epa.gov deploy."
+	},
+	{
+		"SERVER_NAME": "cdxt",
+		"ENV": "epa_azure_docker_test.env",
+		"DESCRIPTION": "Testing environment for epa.gov deploy."
+	},
+	{
+		"SERVER_NAME": "cdxp",
+		"ENV": "epa_azure_docker_prod.env",
+		"DESCRIPTION": "Production environment for epa.gov deploy."
 	}
 
 ]
