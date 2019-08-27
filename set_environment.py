@@ -10,6 +10,8 @@ import socket
 logger = logging.getLogger(__name__)
 logger.warning("set_environment.py")
 
+root_path = os.path.abspath(os.path.split(__file__)[0])
+
 
 class ServerConfig:
     """
@@ -18,8 +20,8 @@ class ServerConfig:
     """
 
     def __init__(self):
-
-        self.server_configs_file = "temp_config/server_configs.json"  # filename for server configs
+        # self.server_configs_file = "temp_config/server_configs.json"  # filename for server configs
+        self.server_configs_file = os.path.join(root_path, "server_configs.json")
         self.server_key = "SERVER_NAME"  # server identifier key from server_configs.json
         self.env_file_key = "ENV"  # server_config.json key for env var filenames
         self.current_config = None  # env var file to load
@@ -83,7 +85,8 @@ class DeployEnv(ServerConfig):
         if not self.epa_access_test_url:
             self.epa_access_test_url = 'https://qedinternal.epa.gov'
 
-        self.env_path = "temp_config/environments/"  # path to .env files
+        # self.env_path = "temp_config/environments/"  # path to .env files
+        self.env_path = os.path.join(root_path, "environments")
 
     def determine_env(self):
         """
@@ -142,10 +145,6 @@ class DeployEnv(ServerConfig):
         then, if there's not a matching config, tries to automatically
         determine what .env file to use.
         """
-
-        # env_filename = ''  # environment file name
-        # server_name = self.get_machine_identifer()
-
         # Sets machine identifier attributes:
         self.aws_hostname = os.environ.get('AWS_HOSTNAME')
         self.docker_hostname = os.environ.get(
@@ -164,7 +163,8 @@ class DeployEnv(ServerConfig):
 
         logger.warning("Loading env vars from: {}.".format(env_filename))
 
-        dotenv_path = self.env_path + env_filename  # sets .env file path
+        # dotenv_path = self.env_path + env_filename  # sets .env file path
+        dotenv_path = os.path.join(self.env_path, env_filename)
 
         os.environ["SYSTEM_NAME"] = self.system_name #set system name (e.g. WINDOWS or LINUX or DARWIN)
         load_dotenv(dotenv_path)  # loads env vars into environment
@@ -209,3 +209,12 @@ class DeployEnv(ServerConfig):
                 return 'local_docker_dev.env'
 
         return None
+
+
+
+if __name__ == '__main__':
+    # Will return .env filename if ran from the terminal:
+    config = DeployEnv()
+    # selected_env_file = config.determine_env()
+    selected_env_file = config.load_deployment_environment()
+    print(selected_env_file)
