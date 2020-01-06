@@ -30,9 +30,9 @@
 		"DESCRIPTION": "Kubernetes development environment."
 	},
 	{
-		"SERVER_NAME": "cdxd",
+		"SERVER_NAME": "CDXDCTS01",
 		"ENV": "epa_azure_docker_dev.env",
-		"DESCRIPTION": "Development environment for epa.gov deploy."
+		"DESCRIPTION": "Development environment for epa.gov deploy (qeddev.epacdx.net)."
 	},
 	{
 		"SERVER_NAME": "cdxt",
