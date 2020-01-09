@@ -35,6 +35,11 @@
 		"DESCRIPTION": "Development environment for epa.gov deploy (qeddev.epacdx.net)."
 	},
 	{
+		"SERVER_NAME": "CDXDCTS02",
+		"ENV": "epa_azure_docker_dev.env",
+		"DESCRIPTION": "Development environment for epa.gov deploy (qeddev.epacdx.net)."
+	},
+	{
 		"SERVER_NAME": "cdxt",
 		"ENV": "epa_azure_docker_test.env",
 		"DESCRIPTION": "Testing environment for epa.gov deploy."
