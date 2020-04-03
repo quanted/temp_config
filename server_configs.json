@@ -1,8 +1,13 @@
 [
 	{
-		"SERVER_NAME": "QedCluster",
+		"SERVER_NAME": "qed-prod-green",
 		"ENV": "saic_aws_docker_prod.env",
 		"DESCRIPTION": "Production server for SAIC AWS cloud."
+	},
+	{
+		"SERVER_NAME": "qed-dev-blue",
+		"ENV": "saic_aws_docker_dev.env",
+		"DESCRIPTION": "Development server for SAIC AWS cloud."
 	},
 	{
 		"SERVER_NAME": "UberTool-Dev",
@@ -10,33 +15,39 @@
 		"DESCRIPTION": "CGI Azure Linux server for testing."
 	},
 	{
-		"SERVER_NAME": "ord-uber-vm001",
-		"ENV": "cgi_docker_staging.env",
-		"DESCRIPTION": "Staging server for old CGI cloud (staging branch)."
-	},
-	{
-		"SERVER_NAME": "ord-uber-vm003",
-		"ENV": "cgi_docker_prod.env",
-		"DESCRIPTION": "Production server for old CGI cloud (master branch)."
-	},
-	{
-		"SERVER_NAME": "ord-uber-vm005",
-		"ENV": "cgi_docker_dev.env",
-		"DESCRIPTION": "Development server for old CGI cloud (dev branch)."
-	},
-	{
-		"SERVER_NAME": "ord-uber-vm007",
-		"ENV": "cgi_docker_dev.env",
-		"DESCRIPTION": "Development server for old CGI cloud (dev branch)."
-	},
-	{
 		"SERVER_NAME": "local",
 		"ENV": "local_dev.env",
 		"DESCRIPTION": "Local development outside EPA intranet (dev branch)."
 	},
 	{
-		"SERVER_NAME": "popenc",
-		"ENV": "local_dev.env",
-		"DESCRIPTION": "Example config entry for personal/local/dev environment."
+		"SERVER_NAME": "docker",
+		"ENV": "local_docker_dev.env",
+		"DESCRIPTION": "Local Docker development."
+	},
+	{
+		"SERVER_NAME": "KUBERNETES",
+		"ENV": "kube_dev.env",
+		"DESCRIPTION": "Kubernetes development environment."
+	},
+	{
+		"SERVER_NAME": "CDXDCTS01",
+		"ENV": "epa_azure_docker_dev.env",
+		"DESCRIPTION": "Development environment for epa.gov deploy (qeddev.epacdx.net)."
+	},
+	{
+		"SERVER_NAME": "CDXDCTS02",
+		"ENV": "epa_azure_docker_dev.env",
+		"DESCRIPTION": "Development environment for epa.gov deploy (qeddev.epacdx.net)."
+	},
+	{
+		"SERVER_NAME": "cdxt",
+		"ENV": "epa_azure_docker_test.env",
+		"DESCRIPTION": "Testing environment for epa.gov deploy."
+	},
+	{
+		"SERVER_NAME": "cdxp",
+		"ENV": "epa_azure_docker_prod.env",
+		"DESCRIPTION": "Production environment for epa.gov deploy."
 	}
+
 ]

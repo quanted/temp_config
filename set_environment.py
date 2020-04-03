@@ -76,6 +76,7 @@ class DeployEnv(ServerConfig):
         self.hostname = None  # HOSTNAME env var for Linux/Bash
         self.computer_name = None  # COMPUTERNAME env var for windows
         self.machine_id = None  # socket.gethostname() result - hostname where python is running
+        self.aws_hostname = None  # sent in by saic/aws for green-prod or dev-blue
 
         # Test URL for determining if server is within EPA intranet:
         self.epa_access_test_url = 'https://qedinternal.epa.gov'
@@ -95,6 +96,13 @@ class DeployEnv(ServerConfig):
 
         # First, try matching docker hostname env var to SERVER_NAME:
         env_filename = self.set_current_config(self.docker_hostname)
+
+        if not env_filename:
+            # see if we are AWS
+            env_filename = self.set_current_config(self.aws_hostname)
+        else:
+            logger.warning("Setting .env filename using $AWS_HOSTNAME.")
+            return env_filename
 
         if not env_filename:
             # Try to find matching SERVER_NAME with machine id:
@@ -129,6 +137,7 @@ class DeployEnv(ServerConfig):
 
     def load_deployment_environment(self):
         """
+        This is called from the outside
         Looks through server_configs.json with ServerConfig class,
         then, if there's not a matching config, tries to automatically
         determine what .env file to use.
@@ -138,6 +147,7 @@ class DeployEnv(ServerConfig):
         # server_name = self.get_machine_identifer()
 
         # Sets machine identifier attributes:
+        self.aws_hostname = os.environ.get('AWS_HOSTNAME')
         self.docker_hostname = os.environ.get(
             'DOCKER_HOSTNAME')  # docker hostname (set in docker-compose using Bash $HOSTNAME)
         self.hostname = os.environ.get('HOSTNAME')  # HOSTNAME env var for Linux/Bash
@@ -148,6 +158,7 @@ class DeployEnv(ServerConfig):
         logger.warning("HOSTNAME: {}".format(self.hostname))
         logger.warning("COMPUTERNAME: {}".format(self.computer_name))
         logger.warning("MACHINE ID: {}".format(socket.gethostname()))
+        logger.warning("AWS_HOSTNAME: {}".format(self.aws_hostname))
 
         env_filename = self.determine_env()  # gets .env filename by checking machine name with server_configs.json
 
@@ -186,6 +197,7 @@ class DeployEnv(ServerConfig):
                 return 'local_dev.env'
             else:
                 return 'cgi_docker_dev.env'
+                return 'this env no longer exists'
         else:
             logger.warning("Assuming outside epa network.")
             if not self.docker_hostname:
