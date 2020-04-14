@@ -46,7 +46,7 @@
 	},
 	{
 		"SERVER_NAME": "ceam-rhel-stg",
-		"ENV": "gdit_aws_std.env",
+		"ENV": "gdit_aws_stg.env",
 		"DESCRIPTION": "Staging environment for gdit staging server (3.80.239.49)."
 	}
 ]
