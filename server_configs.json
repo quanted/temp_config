@@ -45,7 +45,7 @@
 		"DESCRIPTION": "Development environment for gdit dev server (174.129.104.40)."
 	},
 	{
-		"SERVER_NAME": "ceam-rhel-std",
+		"SERVER_NAME": "ceam-rhel-stg",
 		"ENV": "gdit_aws_std.env",
 		"DESCRIPTION": "Staging environment for gdit staging server (3.80.239.49)."
 	}
