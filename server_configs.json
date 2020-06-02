@@ -40,14 +40,13 @@
 		"DESCRIPTION": "Development environment for epa.gov deploy (qeddev.epacdx.net)."
 	},
 	{
-		"SERVER_NAME": "cdxt",
-		"ENV": "epa_azure_docker_test.env",
-		"DESCRIPTION": "Testing environment for epa.gov deploy."
+		"SERVER_NAME": "ceam-rhel-dev",
+		"ENV": "gdit_aws_dev.env",
+		"DESCRIPTION": "Development environment for gdit dev server (174.129.104.40)."
 	},
 	{
-		"SERVER_NAME": "cdxp",
-		"ENV": "epa_azure_docker_prod.env",
-		"DESCRIPTION": "Production environment for epa.gov deploy."
+		"SERVER_NAME": "ceam-rhel-stg",
+		"ENV": "gdit_aws_stg.env",
+		"DESCRIPTION": "Staging environment for gdit staging server (3.80.239.49)."
 	}
-
 ]
