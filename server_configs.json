@@ -57,6 +57,11 @@
 	{
 		"SERVER_NAME": "qedlinux1stg",
 		"ENV": "epa_aws_stg.env",
-		"DESCRIPTION": "Development environment for EPA AWS dev server."
+		"DESCRIPTION": "Staging environment for EPA AWS staging server."
+	},
+	{
+		"SERVER_NAME": "awqedlinprd",
+		"ENV": "epa_aws_prd.env",
+		"DESCRIPTION": "Production environment for EPA AWS production server."
 	}
 ]
